@@ -33,7 +33,7 @@ export default function MobileMenu() {
     };
   }, [open]);
 
-  const address = "123 Bucket Baddie Ave, Los Angeles, CA 90001";
+  const address = "10410 S Main St, Houston, TX 77025";
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   const phoneNumber = "(323) 555-0199";
   const phoneHref = "tel:+13235550199";

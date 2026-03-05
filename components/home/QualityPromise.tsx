@@ -65,7 +65,7 @@ export default function QualityPromise() {
                             </span>
                             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
                                 No Cap.<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">
                                     Just Quality.
                                 </span>
                             </h2>
