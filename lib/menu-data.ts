@@ -1,23 +1,24 @@
 import { cache } from "react";
 
-export type MenuCategory = "All" | "Buckets" | "Wings & Tenders" | "Fries & loaded" | "Drinks";
+export type MenuCategory = "All" | "Buckets" | "Wings & Tenders" | "Sides & Fries" | "Drinks";
 
 export interface MenuItem {
   id: string;
   name: string;
   description: string;
   price: number;
-  category: Omit<MenuCategory, "All">;
+  category: Exclude<MenuCategory, "All">;
   image: string;
   tags?: string[]; // e.g., "Spicy", "New", "Vegan"
   popular?: boolean;
+  sizes?: string[]; // e.g., "Small", "Medium", "Large", "Extra Large"
 }
 
 export const menuCategories: MenuCategory[] = [
   "All",
   "Buckets",
   "Wings & Tenders",
-  "Fries & loaded",
+  "Sides & Fries",
   "Drinks",
 ];
 
@@ -32,6 +33,7 @@ const mockMenu: MenuItem[] = [
     image: "",
     tags: ["Popular"],
     popular: true,
+    sizes: ["Medium", "Large", "Extra Large"],
   },
   {
     id: "b2",
@@ -40,6 +42,7 @@ const mockMenu: MenuItem[] = [
     price: 14.99,
     category: "Buckets",
     image: "",
+    sizes: ["Small", "Medium"],
   },
   {
     id: "b3",
@@ -49,6 +52,7 @@ const mockMenu: MenuItem[] = [
     category: "Buckets",
     image: "",
     tags: ["Spicy"],
+    sizes: ["Large", "Extra Large"],
   },
 
   // Wings & Tenders
@@ -59,6 +63,7 @@ const mockMenu: MenuItem[] = [
     price: 8.99,
     category: "Wings & Tenders",
     image: "",
+    sizes: ["Small"],
   },
   {
     id: "w2",
@@ -68,6 +73,7 @@ const mockMenu: MenuItem[] = [
     category: "Wings & Tenders",
     image: "",
     popular: true,
+    sizes: ["Medium"],
   },
   {
     id: "w3",
@@ -76,6 +82,7 @@ const mockMenu: MenuItem[] = [
     price: 9.99,
     category: "Wings & Tenders",
     image: "",
+    sizes: ["Small"],
   },
   {
     id: "w4",
@@ -84,6 +91,7 @@ const mockMenu: MenuItem[] = [
     price: 17.99,
     category: "Wings & Tenders",
     image: "",
+    sizes: ["Medium"],
   },
 
   // Sides & Fries
@@ -94,6 +102,7 @@ const mockMenu: MenuItem[] = [
     price: 4.99,
     category: "Sides & Fries",
     image: "",
+    sizes: ["Small", "Medium", "Large"],
   },
   {
     id: "s2",
@@ -104,6 +113,7 @@ const mockMenu: MenuItem[] = [
     image: "",
     tags: ["Popular", "Spicy"],
     popular: true,
+    sizes: ["Medium", "Large"],
   },
   {
     id: "s3",
@@ -112,6 +122,7 @@ const mockMenu: MenuItem[] = [
     price: 6.99,
     category: "Sides & Fries",
     image: "",
+    sizes: ["Small", "Medium", "Large"],
   },
   {
     id: "s4",
@@ -121,6 +132,7 @@ const mockMenu: MenuItem[] = [
     category: "Sides & Fries",
     image: "",
     tags: ["New"],
+    sizes: ["Small", "Medium"],
   },
 
   // Drinks
@@ -131,6 +143,7 @@ const mockMenu: MenuItem[] = [
     price: 2.99,
     category: "Drinks",
     image: "",
+    sizes: ["Small", "Medium", "Large", "Extra Large"],
   },
   {
     id: "d2",
@@ -140,6 +153,7 @@ const mockMenu: MenuItem[] = [
     category: "Drinks",
     image: "",
     popular: true,
+    sizes: ["Small", "Medium", "Large", "Extra Large"],
   },
   {
     id: "d3",
@@ -148,16 +162,22 @@ const mockMenu: MenuItem[] = [
     price: 1.99,
     category: "Drinks",
     image: "",
+    sizes: ["Small"],
   },
 ];
 
 /**
  * Mock database call with simulated latency.
- * React `cache` ensures that if this is called multiple times in a single render pass
- * (e.g., in layout and page), it only executes once.
  */
 export const getMenu = cache(async (): Promise<MenuItem[]> => {
-  // Simulate a realistic network request
   await new Promise((resolve) => setTimeout(resolve, 300));
   return mockMenu;
+});
+
+/**
+ * Fetch a single menu item by ID.
+ */
+export const getMenuItemById = cache(async (id: string): Promise<MenuItem | undefined> => {
+  await new Promise((resolve) => setTimeout(resolve, 200));
+  return mockMenu.find((item) => item.id === id);
 });
