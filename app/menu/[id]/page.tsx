@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMenuItemById, getMenu } from "@/lib/menu-data";
 import { ChevronRight } from "lucide-react";
-import ProductGallery from "@/components/menu/ProductGallery";
-import ProductInfo from "@/components/menu/ProductInfo";
+import ProductPageClient from "@/components/menu/ProductPageClient";
 import ProductTabs from "@/components/menu/ProductTabs";
 import RelatedProducts from "@/components/menu/RelatedProducts";
 import Link from "next/link";
@@ -60,13 +59,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-                    {/* Left: Gallery */}
-                    <ProductGallery item={product} />
-
-                    {/* Right: Info */}
-                    <ProductInfo item={product} />
-                </div>
+                <ProductPageClient item={product} />
 
                 {/* Tabs Section */}
                 <div className="mt-20 lg:mt-32">

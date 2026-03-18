@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getMenu, menuCategories } from "@/lib/menu-data";
 import MenuClient from "@/components/menu/MenuClient";
-import DeliveryBanner from "@/components/menu/DeliveryBanner";
+// import DeliveryBanner from "@/components/menu/DeliveryBanner";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 

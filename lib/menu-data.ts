@@ -1,6 +1,11 @@
 import { cache } from "react";
 
-export type MenuCategory = "All" | "Buckets" | "Wings & Tenders" | "Sides & Fries" | "Drinks";
+export type MenuCategory = "All" | "Buckets" | "Wings & Rice" | "Sides & Fries" | "Drinks";
+
+export interface MenuItemOption {
+  label: string;
+  image: string;
+}
 
 export interface MenuItem {
   id: string;
@@ -12,127 +17,164 @@ export interface MenuItem {
   tags?: string[]; // e.g., "Spicy", "New", "Vegan"
   popular?: boolean;
   sizes?: string[]; // e.g., "Small", "Medium", "Large", "Extra Large"
+  options?: MenuItemOption[]; // e.g., Wings vs Tenders selection
 }
 
 export const menuCategories: MenuCategory[] = [
   "All",
   "Buckets",
-  "Wings & Tenders",
+  "Wings & Rice",
   "Sides & Fries",
   "Drinks",
 ];
 
 const mockMenu: MenuItem[] = [
-  // Buckets
+  // Buckets — filled with crispy fries & topped with chicken
   {
     id: "b1",
-    name: "The Baddie Bucket",
-    description: "20 Wings, 10 Tenders, Large Loaded Fries, and 4 Signature Sauces.",
-    price: 34.99,
+    name: "Small Bucket",
+    description: "26 oz bucket filled with crispy fries & topped with 6 Wings or 3 Tenders. Choose up to 2 sauces.",
+    price: 9.99,
     category: "Buckets",
-    image: "",
-    tags: ["Popular"],
-    popular: true,
-    sizes: ["Medium", "Large", "Extra Large"],
+    image: "/menu/b1-wings.png",
+    sizes: ["Small"],
+    options: [
+      { label: "6 Wings", image: "/menu/b1-wings.png" },
+      { label: "3 Tenders", image: "/menu/b1-tenders.png" },
+    ],
   },
   {
     id: "b2",
-    name: "Solo Bucket",
-    description: "8 Wings, Small Fries, and 2 Signature Sauces. Perfect for one.",
+    name: "Medium Bucket",
+    description: "32 oz bucket filled with crispy fries & topped with 10 Wings or 5 Tenders. Choose up to 2 sauces.",
     price: 14.99,
     category: "Buckets",
-    image: "",
-    sizes: ["Small", "Medium"],
+    image: "/menu/b2-wings.png",
+    popular: true,
+    sizes: ["Medium"],
+    options: [
+      { label: "10 Wings", image: "/menu/b2-wings.png" },
+      { label: "5 Tenders", image: "/menu/b2-tenders.png" },
+    ],
   },
   {
     id: "b3",
-    name: "Spicy Baddie Bucket",
-    description: "20 Spicy Tenders tossed in Ghost Sauce, Large Jalapeño Fries.",
-    price: 36.99,
+    name: "Large Bucket",
+    description: "48 oz bucket filled with crispy fries & topped with 15 Wings or 8 Tenders. Choose up to 2 sauces.",
+    price: 19.99,
     category: "Buckets",
-    image: "",
-    tags: ["Spicy"],
-    sizes: ["Large", "Extra Large"],
+    image: "/menu/b3-wings.png",
+    sizes: ["Large"],
+    options: [
+      { label: "15 Wings", image: "/menu/b3-wings.png" },
+      { label: "8 Tenders", image: "/menu/b3-tenders.png" },
+    ],
   },
 
-  // Wings & Tenders
+  // Wings & Tenders — Chicken Only (No fries)
   {
     id: "w1",
-    name: "6-Piece Wings",
-    description: "Crispy, double-fried halal wings tossed in your choice of sauce.",
-    price: 8.99,
-    category: "Wings & Tenders",
-    image: "",
-    sizes: ["Small"],
+    name: "6 Wings w/ Rice",
+    description: "6 crispy wings tossed in your choice of sauce. No fries.",
+    price: 7.99,
+    category: "Wings & Rice",
+    image: "/menu/w1-wings.png",
+    sizes: ["6 pc"],
   },
   {
     id: "w2",
-    name: "12-Piece Wings",
-    description: "Bring a friend. Or don't. Double-fried halal wings.",
-    price: 15.99,
-    category: "Wings & Tenders",
-    image: "",
+    name: "10 Wings w/ Rice",
+    description: "10 crispy wings tossed in your choice of sauce. No fries.",
+    price: 11.99,
+    category: "Wings & Rice",
+    image: "/menu/w2-wings.png",
     popular: true,
-    sizes: ["Medium"],
+    sizes: ["10 pc"],
   },
   {
     id: "w3",
-    name: "4-Piece Tenders",
-    description: "Massive, juicy halal chicken tenders with a crispy buttermilk bite.",
-    price: 9.99,
-    category: "Wings & Tenders",
-    image: "",
-    sizes: ["Small"],
+    name: "15 Wings w/ Rice",
+    description: "15 crispy wings tossed in your choice of sauce. No fries.",
+    price: 16.99,
+    category: "Wings & Rice",
+    image: "/menu/w3-wings.png",
+    sizes: ["15 pc"],
   },
   {
     id: "w4",
-    name: "8-Piece Tenders",
-    description: "A solid box of our signature buttermilk tenders.",
-    price: 17.99,
-    category: "Wings & Tenders",
-    image: "",
-    sizes: ["Medium"],
+    name: "3 Tenders w/ Rice",
+    description: "3 crispy chicken tenders tossed in your choice of sauce. No fries.",
+    price: 6.99,
+    category: "Wings & Rice",
+    image: "/menu/w4-tenders.png",
+    sizes: ["3 pc"],
+  },
+  {
+    id: "w5",
+    name: "5 Tenders w/ Rice",
+    description: "5 crispy chicken tenders tossed in your choice of sauce. No fries.",
+    price: 10.99,
+    category: "Wings & Rice",
+    image: "/menu/w5-tenders.png",
+    popular: true,
+    sizes: ["5 pc"],
+  },
+  {
+    id: "w6",
+    name: "8 Tenders w/ Rice",
+    description: "8 crispy chicken tenders tossed in your choice of sauce. No fries.",
+    price: 15.99,
+    category: "Wings & Rice",
+    image: "/menu/w6-tenders.png",
+    sizes: ["8 pc"],
   },
 
   // Sides & Fries
   {
     id: "s1",
-    name: "Classic Crinkle Fries",
-    description: "Crispy crinkle-cut fries with our secret Baddie seasoning.",
-    price: 4.99,
+    name: "Fries-Only Bucket (Small)",
+    description: "26 oz bucket of crispy fries. No chicken.",
+    price: 5.99,
     category: "Sides & Fries",
-    image: "",
-    sizes: ["Small", "Medium", "Large"],
+    image: "/menu/s1-fries.png",
+    sizes: ["Small"],
   },
   {
     id: "s2",
-    name: "Loaded Baddie Fries",
-    description: "Crinkle fries topped with chopped tenders, Pink Heat sauce, and scallions.",
-    price: 9.99,
+    name: "Fries-Only Bucket (Medium)",
+    description: "32 oz bucket of crispy fries. No chicken.",
+    price: 7.49,
     category: "Sides & Fries",
-    image: "",
-    tags: ["Popular", "Spicy"],
-    popular: true,
-    sizes: ["Medium", "Large"],
+    image: "/menu/s2-fries.png",
+    sizes: ["Medium"],
   },
   {
     id: "s3",
-    name: "Truffle Parm Fries",
-    description: "Fries tossed in white truffle oil, parmesan, and parsley.",
-    price: 6.99,
+    name: "Fries-Only Bucket (Large)",
+    description: "48 oz bucket of crispy fries. No chicken.",
+    price: 9.99,
     category: "Sides & Fries",
-    image: "",
-    sizes: ["Small", "Medium", "Large"],
+    image: "/menu/s3-fries.png",
+    sizes: ["Large"],
   },
   {
     id: "s4",
-    name: "Mac & Cheese Bites",
-    description: "Deep-fried five-cheese mac bites served with Ranch.",
-    price: 7.99,
+    name: "Loaded Fries (Regular)",
+    description: "26 oz fries topped with chopped tenders & your choice of sauce.",
+    price: 8.99,
     category: "Sides & Fries",
     image: "",
-    tags: ["New"],
-    sizes: ["Small", "Medium"],
+    popular: true,
+    sizes: ["Regular"],
+  },
+  {
+    id: "s5",
+    name: "Loaded Fries (Large)",
+    description: "32 oz fries topped with chopped tenders & your choice of sauce.",
+    price: 11.99,
+    category: "Sides & Fries",
+    image: "",
+    sizes: ["Large"],
   },
 
   // Drinks

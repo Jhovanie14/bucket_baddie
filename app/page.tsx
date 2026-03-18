@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { getSauces } from "@/lib/sauces-data";
-import { getMenu, menuCategories } from "@/lib/menu-data";
+import { getMenu } from "@/lib/menu-data";
 
 import SaucesCarousel from "@/components/sauces/SaucesCarousel";
 import Marquee from "@/components/home/Marquee";
 import MenuShowcase from "@/components/home/MenuShowcase";
 import PopularItems from "@/components/home/PopularItems";
 import PromoBanners from "@/components/home/PromoBanners";
-import HomeCategoryTabs from "@/components/home/HomeCategoryTabs";
 import QualityPromise from "@/components/home/QualityPromise";
 import NewsletterSignup from "@/components/home/NewsletterSignup";
 

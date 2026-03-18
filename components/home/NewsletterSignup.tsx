@@ -8,17 +8,36 @@ export default function NewsletterSignup() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email) return;
 
         setStatus("loading");
-        // Simulate API call for now; user said they will hook up third party later
-        setTimeout(() => {
+        
+        try {
+            const response = await fetch("/api/newsletter/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Subscription failed");
+            }
+
             setStatus("success");
             setEmail("");
+            // Success state remains for 3 seconds before resetting to idle
             setTimeout(() => setStatus("idle"), 3000);
-        }, 1000);
+        } catch (error) {
+            console.error("Newsletter signup error:", error);
+            setStatus("idle");
+            // Optionally add an error state/toast here if desired
+            alert(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+        }
     };
 
     return (

@@ -19,13 +19,13 @@ export default function ProductCard({ item }: { item: MenuItem }) {
             </button>
 
             {/* Link to Product Single - Image Area */}
-            <Link href={`/menu/${item.id}`} className="relative aspect-[4/3] w-full p-6 sm:p-8 flex items-center justify-center bg-neutral-50/50 overflow-hidden">
+            <Link href={`/menu/${item.id}`} className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-50/50">
                 {item.image ? (
                     <Image
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                 ) : (
                     <div className="w-32 h-32 bg-neutral-200 rounded-full animate-pulse flex items-center justify-center italic text-[10px] text-black/10 font-black">

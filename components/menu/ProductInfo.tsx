@@ -1,9 +1,16 @@
 "use client";
 
 import { Star, Share2, CornerDownRight } from "lucide-react";
-import type { MenuItem } from "@/lib/menu-data";
+import type { MenuItem, MenuItemOption } from "@/lib/menu-data";
+import { cn } from "@/lib/utils";
 
-export default function ProductInfo({ item }: { item: MenuItem }) {
+interface ProductInfoProps {
+    item: MenuItem;
+    selectedOption?: MenuItemOption | null;
+    onOptionChange?: (option: MenuItemOption) => void;
+}
+
+export default function ProductInfo({ item, selectedOption, onOptionChange }: ProductInfoProps) {
     return (
         <div className="flex flex-col space-y-8">
             {/* Header Info */}
@@ -26,6 +33,31 @@ export default function ProductInfo({ item }: { item: MenuItem }) {
                     {item.description} There are many variations of passages of Lorem Ipsum available, but majority have suffered alteration in some form, by injected humour, or randomised.
                 </p>
             </div>
+
+            {/* Option Selector (Wings / Tenders) */}
+            {item.options && item.options.length > 0 && onOptionChange && (
+                <div className="space-y-3">
+                    <p className="text-[10px] font-black text-white/30 uppercase tracking-widest italic">
+                        Choose Your Chicken
+                    </p>
+                    <div className="flex gap-3">
+                        {item.options.map((option) => (
+                            <button
+                                key={option.label}
+                                onClick={() => onOptionChange(option)}
+                                className={cn(
+                                    "flex-1 h-12 rounded-xl border font-black text-sm uppercase tracking-widest transition-all duration-300",
+                                    selectedOption?.label === option.label
+                                        ? "bg-pink-500 border-pink-500 text-white shadow-lg shadow-pink-500/20"
+                                        : "bg-white/5 border-white/10 text-white/40 hover:border-white/30 hover:text-white"
+                                )}
+                            >
+                                {option.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Pricing */}
             <div className="flex items-baseline gap-4 py-6 border-y border-white/5">

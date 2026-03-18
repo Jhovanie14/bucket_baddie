@@ -39,8 +39,8 @@ export default function LocationPage() {
                     <div className="lg:col-span-5 flex flex-col gap-6">
                         <LocationCard
                             type="restaurant"
-                            name="Houston Kitchen"
-                            subtitle="Full-Service Prep Kitchen"
+                            name="Bucket Baddie"
+                            subtitle="Houston Food Truck"
                             address="10410 S Main St, Houston, TX 77025"
                             phone="+1 (281) 809-5730"
                             hours={[

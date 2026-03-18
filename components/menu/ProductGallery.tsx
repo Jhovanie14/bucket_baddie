@@ -6,8 +6,10 @@ import { Search } from "lucide-react";
 import type { MenuItem } from "@/lib/menu-data";
 import { cn } from "@/lib/utils";
 
-export default function ProductGallery({ item }: { item: MenuItem }) {
+export default function ProductGallery({ item, activeImage }: { item: MenuItem; activeImage?: string }) {
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const displayImage = activeImage || item.image || null;
 
     // Simulation of multiple images using the same one with different crops/filters
     const images = [
@@ -21,12 +23,12 @@ export default function ProductGallery({ item }: { item: MenuItem }) {
         <div className="space-y-6">
             {/* Main Image View */}
             <div className="relative aspect-square w-full bg-white rounded-[40px] border border-white/5 overflow-hidden group cursor-zoom-in">
-                {item.image ? (
+                {displayImage ? (
                     <Image
-                        src={item.image}
+                        src={displayImage}
                         alt={item.name}
                         fill
-                        className="object-contain p-12 transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover transition-all duration-500 group-hover:scale-110"
                         priority
                     />
                 ) : (
