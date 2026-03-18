@@ -24,7 +24,7 @@ export default function LocationCard({
 }: LocationCardProps) {
     // Map our dynamic tailwind colors
     const bgColors: Record<string, string> = {
-        "amber-500": "bg-amber-500",
+        "blue-500": "bg-blue-500",
         "pink-500": "bg-pink-500",
     };
 
@@ -34,14 +34,14 @@ export default function LocationCard({
     };
 
     const shadowColors: Record<string, string> = {
-        "amber-500": "shadow-[0_0_50px_rgba(245,158,11,0.2)]",
+        "blue--500": "shadow-[0_0_50px_rgba(245,158,11,0.2)]",
         "pink-500": "shadow-[0_0_50px_rgba(236,72,153,0.2)]",
     };
 
     return (
         <div className={cn(
             "relative flex flex-col rounded-3xl overflow-hidden backdrop-blur-md transition-all duration-500 hover:scale-[1.02]",
-            type === "restaurant" ? "bg-amber-500 text-black" : "bg-neutral-900 border border-white/10 text-white",
+            type === "restaurant" ? "bg-pink-500 text-black" : "bg-neutral-900 border border-white/10 text-white",
             shadowColors[accentColor]
         )}>
             {/* Glow Effect for Dark Mode Cards */}

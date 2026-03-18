@@ -11,7 +11,7 @@ export default function PromoBanners() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
 
                     {/* Banner 1: Super Delicious Combo (Dark/Neutral Theme) */}
-                    <div className="relative group overflow-hidden rounded-[2rem] bg-neutral-900 border border-white/10 min-h-[320px] sm:min-h-[400px] flex items-center p-8 sm:p-12">
+                    <div className="relative group overflow-hidden rounded-[2rem] bg-neutral-900 border border-white/10 min-h-80 sm:min-h-100 flex items-center p-8 sm:p-12">
                         {/* Background elements */}
                         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-500/20 transition-colors duration-700" />
                         <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay" />

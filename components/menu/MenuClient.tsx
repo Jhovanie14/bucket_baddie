@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Search, LayoutGrid, List, SlidersHorizontal } from "lucide-react";
+import { useMemo, useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { Search, LayoutGrid, List, SlidersHorizontal, X } from "lucide-react";
 import ProductCard from "./ProductCard";
 import MenuSidebar from "./MenuSidebar";
 import type { MenuItem, MenuCategory } from "@/lib/menu-data";
@@ -13,141 +14,241 @@ interface MenuClientProps {
 }
 
 export default function MenuClient({ initialData, categories }: MenuClientProps) {
-  const [activeCategory, setActiveCategory] = useState<MenuCategory>("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState("default");
 
-  // Filter logic
+  const dataMaxPrice = Math.ceil(Math.max(...initialData.map((i) => i.price)));
+
+  // All filter state lives in the URL
+  const activeCategory = (searchParams.get("category") as MenuCategory) ?? "All";
+  const searchQuery = searchParams.get("q") ?? "";
+  const minPrice = Number(searchParams.get("min") ?? 0);
+  const maxPrice = Number(searchParams.get("max") ?? dataMaxPrice);
+  const sortBy = searchParams.get("sort") ?? "default";
+
+  const setParam = (key: string, value: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (!value) params.delete(key);
+    else params.set(key, value);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const setPriceRange = ([min, max]: [number, number]) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (min > 0) params.set("min", String(min)); else params.delete("min");
+    if (max < dataMaxPrice) params.set("max", String(max)); else params.delete("max");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   const filteredItems = useMemo(() => {
-    return initialData.filter((item) => {
+    let items = initialData.filter((item) => {
       const matchesCategory = activeCategory === "All" || item.category === activeCategory;
-      const query = searchQuery.toLowerCase().trim();
+      const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
-        !query ||
-        item.name.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query);
-
-      const matchesPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
-
-      const matchesSize = selectedSizes.length === 0 ||
-        (item.sizes && item.sizes.some(size => selectedSizes.includes(size)));
-
-      return matchesCategory && matchesSearch && matchesPrice && matchesSize;
+        !q ||
+        item.name.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q);
+      const matchesPrice = item.price >= minPrice && item.price <= maxPrice;
+      return matchesCategory && matchesSearch && matchesPrice;
     });
-  }, [initialData, activeCategory, searchQuery, priceRange, selectedSizes]);
+
+    if (sortBy === "price-low") items = [...items].sort((a, b) => a.price - b.price);
+    else if (sortBy === "price-high") items = [...items].sort((a, b) => b.price - a.price);
+    else if (sortBy === "popular") items = [...items].sort((a, b) => Number(b.popular ?? false) - Number(a.popular ?? false));
+
+    return items;
+  }, [initialData, activeCategory, searchQuery, minPrice, maxPrice, sortBy]);
+
+  const hasFilters =
+    activeCategory !== "All" ||
+    !!searchQuery ||
+    minPrice > 0 ||
+    maxPrice < dataMaxPrice ||
+    sortBy !== "default";
+
+  const sidebarProps = {
+    categories,
+    activeCategory,
+    onSelectCategory: (cat: MenuCategory) => setParam("category", cat === "All" ? null : cat),
+    priceRange: [minPrice, maxPrice] as [number, number],
+    dataMaxPrice,
+    setPriceRange,
+    popularItems: initialData.filter((i) => i.popular),
+  };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 pt-8">
-
-      {/* Sidebar - Desktop */}
-      <div className="hidden lg:block">
-        <MenuSidebar
-          categories={categories}
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-          selectedSizes={selectedSizes}
-          setSelectedSizes={setSelectedSizes}
+    <>
+      {/* Mobile sidebar overlay */}
+      <div
+        className={cn(
+          "fixed inset-0 z-50 lg:hidden transition-all duration-300",
+          sidebarOpen ? "pointer-events-auto" : "pointer-events-none"
+        )}
+      >
+        <div
+          className={cn(
+            "absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300",
+            sidebarOpen ? "opacity-100" : "opacity-0"
+          )}
+          onClick={() => setSidebarOpen(false)}
         />
+        <div
+          className={cn(
+            "absolute inset-y-0 left-0 w-80 max-w-[90vw] bg-neutral-950 border-r border-white/5 overflow-y-auto transition-transform duration-300",
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          )}
+        >
+          <div className="flex items-center justify-between p-6 pb-4 border-b border-white/5">
+            <span className="text-lg font-black text-white uppercase tracking-tighter italic">Filters</span>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-white/40 hover:text-white transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="p-6">
+            <MenuSidebar
+              {...sidebarProps}
+              onSelectCategory={(cat) => {
+                sidebarProps.onSelectCategory(cat);
+                setSidebarOpen(false);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 space-y-8">
+      <div className="flex flex-col lg:flex-row gap-10 pt-8">
+        {/* Sidebar — desktop only */}
+        <div className="hidden lg:block shrink-0">
+          <MenuSidebar {...sidebarProps} />
+        </div>
 
-        {/* Top Bar / Controls */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 md:p-6 bg-neutral-900/50 border border-white/5 rounded-3xl backdrop-blur-sm">
-          <div className="flex items-center gap-4 text-white/50 text-sm font-bold">
-            <button className="flex lg:hidden items-center gap-2 px-3 py-1.5 rounded-lg bg-pink-500 text-white">
-              <SlidersHorizontal className="w-4 h-4" />
-              <span>Filters</span>
-            </button>
-            <div className="hidden sm:block">
-              Showing <span className="text-pink-500">{filteredItems.length}</span> Results
+        {/* Main content */}
+        <div className="flex-1 min-w-0 space-y-5">
+          {/* Top bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-neutral-900/50 border border-white/5 rounded-2xl backdrop-blur-sm">
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search menu..."
+                value={searchQuery}
+                onChange={(e) => setParam("q", e.target.value || null)}
+                className="w-full h-11 pl-10 pr-4 bg-white/5 border border-white/10 rounded-xl text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-pink-500/40 transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setParam("q", null)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
-          </div>
 
-          <div className="flex items-center gap-4 self-end md:self-auto">
-            {/* Sorting */}
-            <div className="flex items-center gap-2">
-              <span className="text-white/30 text-[10px] uppercase font-black tracking-widest hidden sm:block">Sort By:</span>
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Mobile filter trigger */}
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="flex lg:hidden items-center gap-2 h-11 px-4 rounded-xl bg-pink-500 text-white text-xs font-black uppercase tracking-widest"
+              >
+                <SlidersHorizontal className="w-4 h-4" />
+                Filters
+              </button>
+
+              {/* Sort */}
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent text-sm font-bold text-white focus:outline-none cursor-pointer"
+                onChange={(e) => setParam("sort", e.target.value === "default" ? null : e.target.value)}
+                className="h-11 px-3 bg-white/5 border border-white/10 rounded-xl text-sm font-bold text-white focus:outline-none focus:border-pink-500/40 cursor-pointer transition-colors"
               >
                 <option value="default" className="bg-neutral-900">Default</option>
-                <option value="price-low" className="bg-neutral-900">Price: Low to High</option>
-                <option value="price-high" className="bg-neutral-900">Price: High to Low</option>
+                <option value="popular" className="bg-neutral-900">Most Popular</option>
+                <option value="price-low" className="bg-neutral-900">Price ↑</option>
+                <option value="price-high" className="bg-neutral-900">Price ↓</option>
               </select>
-            </div>
 
-            {/* View Modes */}
-            <div className="flex items-center gap-1 border-l border-white/10 pl-4">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={cn("p-2 rounded-lg transition-colors", viewMode === "grid" ? "text-pink-500 bg-pink-500/10" : "text-white/20 hover:text-white")}
-              >
-                <LayoutGrid className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={cn("p-2 rounded-lg transition-colors", viewMode === "list" ? "text-pink-500 bg-pink-500/10" : "text-white/20 hover:text-white")}
-              >
-                <List className="w-5 h-5" />
-              </button>
+              {/* View toggle */}
+              <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={cn(
+                    "p-2 rounded-lg transition-colors",
+                    viewMode === "grid" ? "bg-pink-500 text-white" : "text-white/30 hover:text-white"
+                  )}
+                >
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={cn(
+                    "p-2 rounded-lg transition-colors",
+                    viewMode === "list" ? "bg-pink-500 text-white" : "text-white/30 hover:text-white"
+                  )}
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Results Grid */}
-        {filteredItems.length > 0 ? (
-          <div className={cn(
-            "grid gap-6 sm:gap-8",
-            viewMode === "grid"
-              ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-              : "grid-cols-1"
-          )}>
-            {filteredItems.map((item) => (
-              <ProductCard key={item.id} item={item} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-32 px-4 text-center border border-white/5 rounded-[40px] bg-neutral-900/30">
-            <div className="w-24 h-24 bg-neutral-800 rounded-full flex items-center justify-center mb-8 border border-white/5 shadow-2xl">
-              <Search className="w-10 h-10 text-white/10" />
-            </div>
-            <h3 className="text-3xl font-black text-white mb-3 italic tracking-tighter">BADDIE GHOSTED US</h3>
-            <p className="text-white/40 max-w-sm font-bold text-sm">
-              We couldn't find anything matching your search. Try a different category or clear filters.
+          {/* Results count + clear */}
+          <div className="flex items-center justify-between px-1">
+            <p className="text-white/30 text-xs font-bold">
+              <span className="text-pink-500 font-black">{filteredItems.length}</span>{" "}
+              {filteredItems.length === 1 ? "item" : "items"} found
             </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setActiveCategory("All");
-              }}
-              className="mt-10 px-8 py-4 rounded-2xl bg-pink-500 text-white font-black uppercase tracking-widest hover:bg-pink-600 transition-all shadow-xl shadow-pink-500/20"
-            >
-              Reset Menu
-            </button>
+            {hasFilters && (
+              <button
+                onClick={() => router.push(pathname, { scroll: false })}
+                className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-white/30 hover:text-pink-500 transition-colors"
+              >
+                <X className="w-3 h-3" /> Clear all
+              </button>
+            )}
           </div>
-        )}
 
-        {/* Pagination placeholder */}
-        <div className="flex items-center justify-center gap-2 pt-12">
-          {[1, 2, 3, 4].map(p => (
-            <button key={p} className={cn(
-              "w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm border transition-all",
-              p === 1 ? "bg-pink-500 border-pink-500 text-white shadow-lg shadow-pink-500/20" : "bg-neutral-900 border-white/5 text-white/30 hover:border-white/20 hover:text-white"
-            )}>
-              {p}
-            </button>
-          ))}
+          {/* Grid / List */}
+          {filteredItems.length > 0 ? (
+            <div
+              className={cn(
+                "grid gap-5",
+                viewMode === "grid"
+                  ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                  : "grid-cols-1"
+              )}
+            >
+              {filteredItems.map((item) => (
+                <ProductCard key={item.id} item={item} viewMode={viewMode} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-32 text-center border border-white/5 rounded-[32px] bg-neutral-900/20">
+              <div className="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center mb-6 border border-white/5">
+                <Search className="w-8 h-8 text-white/10" />
+              </div>
+              <h3 className="text-2xl font-black text-white italic tracking-tighter">
+                BADDIE GHOSTED US
+              </h3>
+              <p className="text-white/30 text-sm font-bold mt-2 mb-8 max-w-xs">
+                Nothing matches your filters. Try a different search or reset.
+              </p>
+              <button
+                onClick={() => router.push(pathname, { scroll: false })}
+                className="px-8 py-3 rounded-xl bg-pink-500 text-white font-black uppercase tracking-widest hover:bg-pink-600 transition-colors shadow-lg shadow-pink-500/20"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

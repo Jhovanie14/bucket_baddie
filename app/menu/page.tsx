@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getMenu, menuCategories } from "@/lib/menu-data";
 import MenuClient from "@/components/menu/MenuClient";
-// import DeliveryBanner from "@/components/menu/DeliveryBanner";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ export default async function MenuPage() {
   return (
     <div className="min-h-screen bg-neutral-950 pb-24">
       {/* Menu Hero Header */}
-      <div className="relative w-full h-[300px] md:h-[400px] flex flex-col items-center justify-center text-center px-4 overflow-hidden group">
+      <div className="relative w-full h-75 md:h-100 flex flex-col items-center justify-center text-center px-4 overflow-hidden group">
         <div className="absolute inset-0 bg-[#111111] border-b border-white/5" />
 
         {/* Subtle background image or pattern */}
@@ -37,12 +37,14 @@ export default async function MenuPage() {
 
         {/* Floating food elements (placeholders) */}
         <div className="absolute top-1/2 -left-20 -translate-y-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-64 h-64 bg-amber-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px]" />
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 relative z-20 -mt-10 mb-20 lg:mb-32">
-        <MenuClient initialData={items} categories={menuCategories} />
+      <div className="max-w-360 mx-auto px-4 sm:px-8 lg:px-12 relative z-20 mt-10 mb-20 lg:mb-32">
+        <Suspense fallback={<div className="h-96 flex items-center justify-center text-white/20 font-black italic text-xl">Loading menu...</div>}>
+          <MenuClient initialData={items} categories={menuCategories} />
+        </Suspense>
       </div>
 
       {/* Delivery Challenge Banner */}

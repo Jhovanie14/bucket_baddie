@@ -39,20 +39,20 @@ export default async function HomePage() {
 
         {/* Overlays */}
         <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-neutral-950/40" />
+        <div className="absolute inset-0 bg-linear-to-t from-neutral-950 via-transparent to-neutral-950/40" />
 
         {/* Content */}
         <div className="relative z-10 max-w-3xl mx-auto px-5 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[1.08]">
             <span className="block text-white">
               Buckets Built to Go{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-white">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-white">
                 Viral.
               </span>
             </span>
             <span className="block mt-1 text-white">
               Wings Built to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-white">
                 Disappear.
               </span>
             </span>
@@ -73,7 +73,7 @@ export default async function HomePage() {
           </Link>
         </div>
         {/* bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-neutral-950 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-neutral-950 to-transparent" />
       </section>
 
       {/* ── Signature Sauces Section ── */}
@@ -86,7 +86,7 @@ export default async function HomePage() {
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
               Signature{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-white">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-white">
                 Sauces
               </span>
             </h2>

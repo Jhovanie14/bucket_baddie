@@ -10,15 +10,17 @@ export default function ProductPageClient({ item }: { item: MenuItem }) {
         item.options?.[0] ?? null
     );
 
-    const activeImage = selectedOption?.image ?? item.image;
+    const handleOptionChange = (option: MenuItemOption | null) => {
+        setSelectedOption(option);
+    };
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-            <ProductGallery item={item} activeImage={activeImage} />
+            <ProductGallery item={item} onOptionChange={handleOptionChange} selectedOption={selectedOption} />
             <ProductInfo
                 item={item}
                 selectedOption={selectedOption}
-                onOptionChange={setSelectedOption}
+                onOptionChange={handleOptionChange}
             />
         </div>
     );
