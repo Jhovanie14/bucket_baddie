@@ -33,7 +33,7 @@ export default function PopularItems({ items }: { items: MenuItem[] }) {
                     {popularItems.map((item) => (
                         <div
                             key={item.id}
-                            className="group relative flex flex-col bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hover:bg-white/[0.05] hover:border-white/20 hover:-translate-y-2 transition-all duration-300 shadow-xl"
+                            className="group relative flex flex-col bg-white/3] border border-white/10 rounded-3xl overflow-hidden hover:bg-white/5 hover:border-white/20 hover:-translate-y-2 transition-all duration-300 shadow-xl"
                         >
 
                             {/* Product Image Area */}
@@ -62,7 +62,7 @@ export default function PopularItems({ items }: { items: MenuItem[] }) {
                             </div>
 
                             {/* Product Details Area */}
-                            <div className="flex flex-col items-center text-center p-6 pt-4 gap-2 relative z-10 bg-gradient-to-t from-neutral-950 to-transparent">
+                            <div className="flex flex-col items-center text-center p-6 pt-4 gap-2 relative z-10 bg-linear-to-t from-neutral-950 to-transparent">
                                 <Link href={`/menu?category=${item.category}`} className="w-full">
                                     <h3 className="text-lg font-bold text-white group-hover:text-pink-400 transition-colors uppercase tracking-wide truncate">
                                         {item.name}

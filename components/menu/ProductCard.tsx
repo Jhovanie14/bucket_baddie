@@ -22,6 +22,7 @@ export default function ProductCard({ item, viewMode = "grid" }: ProductCardProp
               src={item.image}
               alt={item.name}
               fill
+              sizes="(max-width: 640px) 144px, 192px"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
@@ -79,9 +80,10 @@ export default function ProductCard({ item, viewMode = "grid" }: ProductCardProp
                     src={option.image}
                     alt={`${item.name} ${option.label}`}
                     fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                     className="object-cover transition-transform duration-500 group-hover/opt:scale-110"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-2">
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-2">
                     <p className="text-[9px] font-black text-white uppercase tracking-wider text-center">
                       {option.label}
                     </p>
@@ -102,6 +104,7 @@ export default function ProductCard({ item, viewMode = "grid" }: ProductCardProp
               src={item.image}
               alt={item.name}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
           ) : (

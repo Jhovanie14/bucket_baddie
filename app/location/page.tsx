@@ -13,7 +13,7 @@ export default function LocationPage() {
             {/* Hero Header */}
             <div className="relative w-full h-80 flex flex-col items-center justify-center text-center px-4 overflow-hidden mb-12 sm:mb-20">
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-neutral-950 to-transparent z-10" />
-                <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay" />
+                {/* <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay" /> */}
 
                 {/* Animated Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-75 bg-blue-500/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />

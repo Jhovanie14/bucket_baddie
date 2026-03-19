@@ -77,13 +77,13 @@ export default function Footer() {
 
                         {/* Social Icons */}
                         <div className="flex items-center gap-3 pt-2">
-                            <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
+                            <a href="https://www.instagram.com/bucketbaddiellc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
                                 <Instagram className="w-4 h-4" />
                             </a>
-                            <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
+                            {/* <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
                                 <Twitter className="w-4 h-4" />
-                            </a>
-                            <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
+                            </a> */}
+                            <a href="https://www.facebook.com/profile.php?id=61588209569764" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
                                 <Facebook className="w-4 h-4" />
                             </a>
                         </div>

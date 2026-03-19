@@ -65,7 +65,7 @@ export default function HomeCategoryTabs({ initialItems, categories }: HomeCateg
         </div>
 
         {/* Grid Results */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 min-h-[400px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 min-h-100">
           {activeItems.map((item) => (
             <div key={item.id} className="animate-in fade-in zoom-in-95 duration-500 fill-mode-both">
                <ProductCard item={item} />
@@ -73,7 +73,7 @@ export default function HomeCategoryTabs({ initialItems, categories }: HomeCateg
           ))}
           {/* Fill empty spots if category has < 4 items to maintain grid height */}
            {Array.from({ length: Math.max(0, 4 - activeItems.length) }).map((_, i) => (
-            <div key={`empty-${i}`} className="hidden lg:flex items-center justify-center border border-white/5 border-dashed rounded-3xl bg-white/[0.01]">
+            <div key={`empty-${i}`} className="hidden lg:flex items-center justify-center border border-white/5 border-dashed rounded-3xl bg-white/1">
               <span className="text-white/20 text-sm font-medium">More coming soon</span>
             </div>
           ))}

@@ -23,9 +23,9 @@ export default function NavLinks({ className }: { className?: string }) {
                         href={href}
                         className={cn(
                             "relative px-4 py-2 text-sm font-semibold tracking-wide uppercase transition-all duration-300 rounded-lg",
-                            "hover:bg-pink-400/10 hover:text-white",
+                            "hover:text-pink-400 ",
                             isActive
-                                ? "text-white after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[2px] after:w-8 after:bg-pink-400 after:rounded-full after:content-['']"
+                                ? "text-white after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-8 after:bg-pink-400 after:rounded-full after:content-['']"
                                 : "text-white/70"
                         )}
                     >

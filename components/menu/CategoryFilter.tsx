@@ -48,7 +48,7 @@ export default function CategoryFilter({
               data-active={isActive}
               onClick={() => onSelectCategory(cat)}
               className={cn(
-                "relative flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide snap-start transition-all duration-300",
+                "relative shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide snap-start transition-all duration-300",
                 isActive
                   ? "bg-pink-500 text-white shadow-lg shadow-pink-500/25"
                   : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:text-white"
@@ -61,8 +61,8 @@ export default function CategoryFilter({
       </div>
 
       {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-neutral-950 to-transparent sm:hidden" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-neutral-950 to-transparent sm:hidden" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-linear-to-r from-neutral-950 to-transparent sm:hidden" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-neutral-950 to-transparent sm:hidden" />
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function PromoBanners() {
                     {/* Banner 1: Super Delicious Combo (Dark/Neutral Theme) */}
                     <div className="relative group overflow-hidden rounded-[2rem] bg-neutral-900 border border-white/10 min-h-80 sm:min-h-100 flex items-center p-8 sm:p-12">
                         {/* Background elements */}
-                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-500/20 transition-colors duration-700" />
+                        <div className="absolute top-0 right-0 w-400 h-400 bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-500/20 transition-colors duration-700" />
                         <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay" />
 
                         {/* Content */}
@@ -48,10 +48,10 @@ export default function PromoBanners() {
 
 
                     {/* Banner 2: Spicy Surprise (Brand Red/Pink Theme) */}
-                    <div className="relative group overflow-hidden rounded-[2rem] bg-gradient-to-br from-pink-600 to-rose-700 border border-pink-500/30 min-h-[320px] sm:min-h-[400px] flex items-center p-8 sm:p-12 shadow-2xl shadow-pink-500/10">
+                    <div className="relative group overflow-hidden rounded-[2rem] bg-linear-to-br from-pink-600 to-rose-700 border border-pink-500/30 min-h-800 sm:min-h-100 flex items-center p-8 sm:p-12 shadow-2xl shadow-pink-500/10">
                         {/* Background elements */}
                         <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay" />
-                        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent mix-blend-multiply" />
+                        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-linear-to-t from-black/60 to-transparent mix-blend-multiply" />
 
                         {/* Floating Badge */}
                         <div className="absolute top-8 right-8">
@@ -64,7 +64,7 @@ export default function PromoBanners() {
                         {/* Content */}
                         <div className="relative z-10 max-w-sm mt-auto">
                             <h3 className="text-4xl sm:text-5xl font-black text-white leading-[1.1] mb-2 drop-shadow-lg">
-                                The <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-pink-200">Spicy</span><br />
+                                The <span className="text-transparent bg-clip-text bg-linear-to-br from-white to-pink-200">Spicy</span><br />
                                 Surprise
                             </h3>
                             <p className="text-white/90 mb-6 font-medium tracking-wide drop-shadow-md">
@@ -82,7 +82,7 @@ export default function PromoBanners() {
                         {/* Floating abstract art to mimic food image */}
                         <div className="absolute top-1/2 right-4 -translate-y-1/2 w-[55%] h-full flex items-center justify-center opacity-80 transform group-hover:-translate-x-2 transition-transform duration-700 pointer-events-none">
                             <div className="w-full aspect-square border-8 border-white/10 rounded-full border-dashed animate-[spin_60s_linear_infinite]" />
-                            <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent rounded-full blur-xl" />
+                            <div className="absolute inset-0 bg-linear-to-tr from-white/20 to-transparent rounded-full blur-xl" />
                         </div>
                     </div>
 

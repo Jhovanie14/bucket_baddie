@@ -106,7 +106,7 @@ export default function MenuSidebar({
               >
                 <div className="relative w-14 h-14 rounded-lg bg-neutral-800 shrink-0 overflow-hidden">
                   {item.image ? (
-                    <Image src={item.image} alt={item.name} fill className="object-cover" />
+                    <Image src={item.image} alt={item.name} fill sizes="56px" className="object-cover" />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-[8px] text-white/10 font-black">IMG</div>
                   )}

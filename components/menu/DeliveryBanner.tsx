@@ -9,7 +9,7 @@ export default function DeliveryBanner() {
             {/* Decorative background elements */}
             <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
                 <div className="absolute top-10 right-10 w-32 h-32 border-8 border-white rounded-full" />
-                <div className="absolute bottom-10 right-20 w-48 h-48 border-[12px] border-white rounded-full" />
+                <div className="absolute bottom-10 right-20 w-48 h-48 border-12 border-white rounded-full" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">

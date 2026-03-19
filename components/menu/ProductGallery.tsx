@@ -30,6 +30,7 @@ export default function ProductGallery({ item, selectedOption, onOptionChange }:
                         src={displayImage}
                         alt={item.name}
                         fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover transition-all duration-500 group-hover:scale-110"
                         priority
                     />
@@ -68,6 +69,7 @@ export default function ProductGallery({ item, selectedOption, onOptionChange }:
                                     src={img.src}
                                     alt={img.label}
                                     fill
+                                    sizes="(max-width: 1024px) 25vw, 12vw"
                                     className={cn(
                                         "object-contain p-3 transition-opacity duration-300",
                                         activeIndex === idx ? "opacity-100" : "opacity-40 hover:opacity-100"

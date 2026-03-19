@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { Search, LayoutGrid, List, SlidersHorizontal, X } from "lucide-react";
+import { Search, LayoutGrid, List, SlidersHorizontal, X, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import MenuSidebar from "./MenuSidebar";
 import type { MenuItem, MenuCategory } from "@/lib/menu-data";
@@ -28,11 +28,15 @@ export default function MenuClient({ initialData, categories }: MenuClientProps)
   const minPrice = Number(searchParams.get("min") ?? 0);
   const maxPrice = Number(searchParams.get("max") ?? dataMaxPrice);
   const sortBy = searchParams.get("sort") ?? "default";
+  const currentPage = Math.max(1, Number(searchParams.get("page") ?? 1));
+  const ITEMS_PER_PAGE = 9;
 
   const setParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
     if (!value) params.delete(key);
     else params.set(key, value);
+    // Reset page when changing filters (but not when changing page itself)
+    if (key !== "page") params.delete("page");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
@@ -40,6 +44,7 @@ export default function MenuClient({ initialData, categories }: MenuClientProps)
     const params = new URLSearchParams(searchParams.toString());
     if (min > 0) params.set("min", String(min)); else params.delete("min");
     if (max < dataMaxPrice) params.set("max", String(max)); else params.delete("max");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
@@ -61,6 +66,10 @@ export default function MenuClient({ initialData, categories }: MenuClientProps)
 
     return items;
   }, [initialData, activeCategory, searchQuery, minPrice, maxPrice, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / ITEMS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedItems = filteredItems.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE);
 
   const hasFilters =
     activeCategory !== "All" ||
@@ -216,18 +225,66 @@ export default function MenuClient({ initialData, categories }: MenuClientProps)
 
           {/* Grid / List */}
           {filteredItems.length > 0 ? (
-            <div
-              className={cn(
-                "grid gap-5",
-                viewMode === "grid"
-                  ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-                  : "grid-cols-1"
+            <>
+              <div
+                className={cn(
+                  "grid gap-5",
+                  viewMode === "grid"
+                    ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                    : "grid-cols-1"
+                )}
+              >
+                {paginatedItems.map((item) => (
+                  <ProductCard key={item.id} item={item} viewMode={viewMode} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 pt-8">
+                  <button
+                    onClick={() => setParam("page", safePage > 1 ? String(safePage - 1) : null)}
+                    disabled={safePage <= 1}
+                    className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300",
+                      safePage <= 1
+                        ? "border-white/5 text-white/10 cursor-not-allowed"
+                        : "border-white/10 text-white/50 hover:border-pink-500/40 hover:text-pink-500 bg-white/5"
+                    )}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setParam("page", page === 1 ? null : String(page))}
+                      className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black uppercase transition-all duration-300 border",
+                        safePage === page
+                          ? "bg-pink-500 border-pink-500 text-white shadow-lg shadow-pink-500/20"
+                          : "border-white/10 text-white/40 hover:border-pink-500/40 hover:text-pink-500 bg-white/5"
+                      )}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setParam("page", safePage < totalPages ? String(safePage + 1) : String(totalPages))}
+                    disabled={safePage >= totalPages}
+                    className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300",
+                      safePage >= totalPages
+                        ? "border-white/5 text-white/10 cursor-not-allowed"
+                        : "border-white/10 text-white/50 hover:border-pink-500/40 hover:text-pink-500 bg-white/5"
+                    )}
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
               )}
-            >
-              {filteredItems.map((item) => (
-                <ProductCard key={item.id} item={item} viewMode={viewMode} />
-              ))}
-            </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center py-32 text-center border border-white/5 rounded-[32px] bg-neutral-900/20">
               <div className="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center mb-6 border border-white/5">

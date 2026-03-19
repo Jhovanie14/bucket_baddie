@@ -26,7 +26,7 @@ export default async function SaucesPage() {
                         The Flavor Lab
                     </span>
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.1]">
-                        Find Your <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 via-red-500 to-blue-500">Perfect Drip.</span>
+                        Find Your <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-blue-500">Perfect Drip.</span>
                     </h1>
                     <p className="text-base sm:text-lg text-white/50 max-w-2xl mx-auto font-medium">
                         We don't do boring. Six signature house-made sauces. From our zero-heat Garlic Flex to the face-melting Ghost Sauce. Dial in your heat and get tossing.

@@ -52,14 +52,14 @@ export default function SaucesCarousel({
             <button
               onClick={prev}
               aria-label="Previous sauces"
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 active:scale-95 transition-all hidden sm:flex"
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/10 items-center justify-center hover:bg-white/20 active:scale-95 transition-all hidden sm:"
             >
               <ChevronLeft className="w-5 h-5 text-white/70" />
             </button>
             <button
               onClick={next}
               aria-label="Next sauces"
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center hover:bg-white/20 active:scale-95 transition-all hidden sm:flex"
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/10 items-center justify-center hover:bg-white/20 active:scale-95 transition-all hidden sm:flex"
             >
               <ChevronRight className="w-5 h-5 text-white/70" />
             </button>
@@ -74,7 +74,7 @@ export default function SaucesCarousel({
               onClick={() => setSelected(sauce)}
               className={cn(
                 "group relative flex flex-col overflow-hidden rounded-3xl text-left",
-                "bg-white/[0.03] border border-white/10",
+                "bg-white/3 border border-white/10",
                 "hover:bg-white/[0.07] hover:border-white/20 hover:shadow-2xl",
                 "active:scale-[0.98] transition-all duration-300 cursor-pointer"
               )}
@@ -82,7 +82,7 @@ export default function SaucesCarousel({
               {/* Top gradient bar */}
               <div
                 className={cn(
-                  "h-28 bg-gradient-to-br flex items-center justify-center",
+                  "h-28 bg-linear-to-br flex items-center justify-center",
                   sauce.color
                 )}
               >
@@ -124,7 +124,7 @@ export default function SaucesCarousel({
                 className={cn(
                   "h-2 rounded-full transition-all duration-300",
                   i === page
-                    ? "w-8 bg-gradient-to-r from-pink-500 to-white"
+                    ? "w-8 bg-linear-to-r from-pink-500 to-white"
                     : "w-2 bg-white/20 hover:bg-white/40"
                 )}
                 aria-label={`Go to page ${i + 1}`}

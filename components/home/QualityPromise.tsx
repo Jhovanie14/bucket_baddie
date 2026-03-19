@@ -27,7 +27,7 @@ export default function QualityPromise() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
                     {/* Left: Image / Visuals */}
-                    <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[4/5] rounded-[3rem] overflow-hidden bg-neutral-900 border border-white/10 group">
+                    <div className="relative w-full aspect-4/5 sm:aspect-square lg:aspect-4/5 rounded-[3rem] overflow-hidden bg-neutral-900 border border-white/10 group">
                         <div className="absolute inset-0 bg-pink-500/20 mix-blend-color z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                         <Image
@@ -40,7 +40,7 @@ export default function QualityPromise() {
 
                         {/* Overlay Badge */}
                         <div className="absolute bottom-8 left-8 z-20">
-                            <div className="bg-neutral-950/80 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl max-w-[280px] transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                            <div className="bg-neutral-950/80 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl max-w-70 transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
                                 <div className="flex items-center gap-4 mb-3">
                                     <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
                                         <ShieldCheck className="w-6 h-6 text-emerald-400" />
@@ -65,7 +65,7 @@ export default function QualityPromise() {
                             </span>
                             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
                                 No Cap.<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-pink-600">
                                     Just Quality.
                                 </span>
                             </h2>
@@ -78,7 +78,7 @@ export default function QualityPromise() {
                         <div className="space-y-8">
                             {promises.map((promise, i) => (
                                 <div key={i} className="flex items-start gap-5">
-                                    <div className="w-12 h-12 shrink-0 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center mt-1">
+                                    <div className="w-12 h-12 shrink-0 rounded-2xl bg-white/3 border border-white/10 flex items-center justify-center mt-1">
                                         <promise.icon className="w-6 h-6 text-pink-500" />
                                     </div>
                                     <div>

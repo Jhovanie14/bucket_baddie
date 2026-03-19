@@ -43,8 +43,8 @@ export default function NewsletterSignup() {
     return (
         <section className="relative py-16 sm:py-24 overflow-hidden border-t border-white/5 bg-neutral-950">
             {/* Decorative Background Elements */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-pink-500/10 to-transparent pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-pink-500/10 to-transparent pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-100 bg-blue-500/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
             <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
 
             <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
@@ -56,7 +56,7 @@ export default function NewsletterSignup() {
 
                 {/* Headline */}
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight mb-6">
-                    Get the <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-white">Secret Menu.</span>
+                    Get the <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-white">Secret Menu.</span>
                 </h2>
 
                 <p className="text-base sm:text-lg text-white/60 max-w-xl mx-auto font-medium mb-12">
@@ -69,7 +69,7 @@ export default function NewsletterSignup() {
                     className="relative max-w-md mx-auto group"
                 >
                     {/* Subtle glow border that flares on focus-within */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full blur opacity-25 group-focus-within:opacity-75 transition duration-500" />
+                    <div className="absolute -inset-1 bg-linear-to-r from-pink-500 to-blue-500 rounded-full blur opacity-25 group-focus-within:opacity-75 transition duration-500" />
 
                     <div className="relative flex items-center bg-neutral-900 border border-white/10 rounded-full overflow-hidden p-1 shadow-2xl">
                         <input

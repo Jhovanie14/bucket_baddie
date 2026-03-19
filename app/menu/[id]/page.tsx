@@ -41,7 +41,7 @@ export default async function ProductPage({ params }: Props) {
     return (
         <div className="min-h-screen bg-neutral-950 pb-24">
             {/* Hero Header */}
-            <div className="relative w-full h-[300px] md:h-[400px] flex flex-col items-center justify-center text-center px-4 overflow-hidden group">
+            <div className="relative w-full h-75 md:h-100 flex flex-col items-center justify-center text-center px-4 overflow-hidden group">
                 <div className="absolute inset-0 bg-[#111111] border-b border-white/5" />
                 <div className="absolute inset-x-0 top-0 h-full opacity-10 bg-[url('/textures/noise.png')] mix-blend-overlay" />
 

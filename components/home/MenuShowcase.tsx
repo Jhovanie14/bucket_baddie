@@ -42,7 +42,7 @@ export default function MenuShowcase() {
     return (
         <section className="bg-neutral-950 py-24 sm:py-32 relative overflow-hidden">
             {/* Background glow behind grid */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-pink-500/10 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-pink-500/10 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
@@ -50,7 +50,7 @@ export default function MenuShowcase() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
                     <div className="max-w-2xl">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
-                            The Holy <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600">Trinity.</span>
+                            The Holy <span className="text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-pink-600">Trinity.</span>
                         </h2>
                         <p className="text-white/60 text-lg leading-relaxed">
                             We keep the menu small so we can perfect the essentials. Halal chicken, fresh ingredients, and flavors that refuse to miss.
@@ -81,7 +81,7 @@ export default function MenuShowcase() {
                             {/* Animated Gradient Background */}
                             <div
                                 className={cn(
-                                    "absolute inset-0 bg-gradient-to-br opacity-80 group-hover:opacity-100 transition-opacity duration-500",
+                                    "absolute inset-0 bg-linear-to-br opacity-80 group-hover:opacity-100 transition-opacity duration-500",
                                     item.color
                                 )}
                             />

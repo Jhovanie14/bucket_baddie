@@ -11,12 +11,12 @@ export default function MapSection({ mapsUrl }: MapSectionProps) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
-        <div className="w-full h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden border border-white/10 relative group bg-neutral-900">
+        <div className="w-full h-full min-h-100 lg:min-h-150 rounded-3xl overflow-hidden border border-white/10 relative group bg-neutral-900">
 
             {/* Decorative Overlays for Dark Theme / Bucket Baddie Vibe */}
-            <div className="absolute inset-0 pointer-events-none border-[8px] border-neutral-950/20 z-20 mix-blend-overlay rounded-3xl" />
-            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-neutral-950/80 to-transparent pointer-events-none z-10" />
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-neutral-950/80 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-0 pointer-events-none border-8 border-neutral-950/20 z-20 mix-blend-overlay rounded-3xl" />
+            <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-neutral-950/80 to-transparent pointer-events-none z-10" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-neutral-950/80 to-transparent pointer-events-none z-10" />
 
             {/* Loading State Overlay */}
             {isLoading && (
@@ -39,7 +39,7 @@ export default function MapSection({ mapsUrl }: MapSectionProps) {
                     "w-full h-full absolute inset-0 z-0 transition-opacity duration-1000",
                     isLoading ? "opacity-0" : "opacity-100",
                     // CSS Filter Magic to turn a standard map into a high-contrast dark map
-                    "invert-[90%] hue-rotate-180 contrast-125 saturate-200"
+                    "invert-90 hue-rotate-180 contrast-125 saturate-200"
                 )}
                 style={{ border: 0 }}
                 allowFullScreen
