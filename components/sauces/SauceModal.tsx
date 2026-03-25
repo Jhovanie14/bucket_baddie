@@ -4,6 +4,7 @@ import { X, Droplets } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Sauce } from "@/lib/sauces-data";
 import { HeatIndicator } from "./HeatIndicator";
+import Image from "next/image";
 
 interface SauceModalProps {
   sauce: Sauce | null;
@@ -15,7 +16,7 @@ export function SauceModal({ sauce, onClose }: SauceModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center p-4"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -39,14 +40,20 @@ export function SauceModal({ sauce, onClose }: SauceModalProps) {
           <X className="w-4 h-4 text-white/80" />
         </button>
 
-        {/* Header gradient */}
-        <div
-          className={cn(
-            "h-40 bg-gradient-to-br flex items-center justify-center",
-            sauce.color
+        {/* Header image */}
+        <div className="relative h-48">
+          {sauce.image ? (
+            <Image
+              src={sauce.image}
+              alt={sauce.name}
+              fill
+              className="object-contain p-4"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <Droplets className="w-16 h-16 text-white/30" />
+            </div>
           )}
-        >
-          <Droplets className="w-16 h-16 text-white/30" />
         </div>
 
         {/* Content */}

@@ -79,18 +79,20 @@ export default function SaucesCarousel({
                 "active:scale-[0.98] transition-all duration-300 cursor-pointer"
               )}
             >
-              {/* Top gradient bar */}
-              <div
-                className={cn(
-                  "h-28 bg-linear-to-br flex items-center justify-center",
-                  sauce.color
-                )}
-              >
+              {/* Top image area */}
+              <div className="relative h-36">
                 {
                     sauce.image ? (
-                        <Image src={sauce.image} alt={sauce.name} width={100} height={100} />
+                        <Image
+                          src={sauce.image}
+                          alt={sauce.name}
+                          fill
+                          className="object-contain p-2"
+                        />
                     ) : (
-                        <Droplets className="w-10 h-10 text-white/30 group-hover:text-white/50 group-hover:scale-110 transition-all duration-300" />
+                        <div className="flex items-center justify-center h-full">
+                          <Droplets className="w-10 h-10 text-white/30 group-hover:text-white/50 group-hover:scale-110 transition-all duration-300" />
+                        </div>
                     )
                 }
               </div>

@@ -233,7 +233,7 @@ const mockMenu: MenuItem[] = [
     description: "House-made electric blue raspberry lemonade.",
     price: 3.25,
     category: "Drinks",
-    image: "",
+    image: "/menu/blue-lemonade.png",
     popular: true,
     sizes: ["Small", "Medium", "Large", "Extra Large"],
   },
@@ -252,7 +252,7 @@ const mockMenu: MenuItem[] = [
     description: "Creamy mango shake with a tropical twist.",
     price: 3.25,
     category: "Drinks",
-    image: "",
+    image: "/menu/mango-shake.png",
     sizes: ["Small", "Medium", "Large"]
 
   }
